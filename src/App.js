@@ -1,26 +1,53 @@
 import React from 'react';
-import logo from './logo.svg';
+import NavBar from "./components/NavBar";
+import Feed from "./components/Feed";
+import Axios from "axios";
+import {BrowserRouter, Route} from 'react-router-dom';
 import './App.css';
+import Card from "./components/Card";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends React.Component {
+
+    state = {
+        url: "",
+        articles: "",
+        keyword: "",
+        country: ""
+    };
+    searching = (keyword) => {
+        this.setState({keyword: keyword});
+    };
+
+    changeCountry = (country) => {
+        this.setState({country: country})
+    };
+
+    return = () =>{
+        this.setState({keyword: ""})
+    };
+
+    getFeed = (props) => {
+        return (
+            <Feed
+                keyword={this.state.keyword} country={this.state.country}
+                {...props}
+            />
+        );
+    };
+
+    render() {
+
+        return (
+            <BrowserRouter>
+                <div className="App">
+                    <NavBar searchField={this.searching} changeCountry={this.changeCountry} return={this.return}/>
+                    <Route exact path="/"
+                           render={this.getFeed} />
+                    <Route path={""} />
+
+                    {/*<Feed keyword={this.state.keyword} country={this.state.country}/>*/}
+                </div>
+            </BrowserRouter>
+        );
+    }
 }
-
-export default App;
