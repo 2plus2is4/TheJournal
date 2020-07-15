@@ -32,7 +32,7 @@ export default class NavBar extends React.Component {
         const list = [];
         for (let i = 0; i < countries.length; i+=3) {
             list.push(
-                <button className="dropdown-item" onClick={this.clicked} key={i} id={countries.substr(i,2)}>{
+                <button className="dropdown-item" onClick={this.clicked} href="#" key={i} id={countries.substr(i,2)}>{
                     countries.substr(i,2)
                 }</button>
             )
@@ -43,7 +43,7 @@ export default class NavBar extends React.Component {
 
         return (
             <nav className="navbar navbar-expand-lg sticky-top navbar-light bg-light MyNavBar">
-                <a className="navbar-brand" href="#" onClick={this.returnHome}>
+                <a className="navbar-brand" href="" onClick={this.returnHome}>
                     <img src={Logo} width="130" height="30" alt=""/>
                 </a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -53,16 +53,16 @@ export default class NavBar extends React.Component {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item active">
-                            <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                            <a className="nav-link" href="" onClick={this.returnHome}>Home <span className="sr-only">(current)</span></a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link disabled" href="#" tabIndex="-1" aria-disabled="true">My Blog</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">About</a>
+                            <a className="nav-link disabled" href="#">About</a>
                         </li>
                         <li className="nav-item dropdown float-right">
-                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            <a className="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Change Country
                             </a>

@@ -1,6 +1,7 @@
 import React from 'react';
 import NavBar from "./components/NavBar";
 import Feed from "./components/Feed";
+import ScrollButton from './components/ScrollButton';
 import Axios from "axios";
 import {BrowserRouter, Route} from 'react-router-dom';
 import './App.css';
@@ -44,7 +45,7 @@ export default class App extends React.Component {
                     <Route exact path="/"
                            render={this.getFeed} />
                     <Route path={""} />
-
+                    <ScrollButton scrollStepInPx="50" delayInMs="8.66"/>
                     {/*<Feed keyword={this.state.keyword} country={this.state.country}/>*/}
                 </div>
             </BrowserRouter>

@@ -5,6 +5,8 @@ import Axios from "axios";
 
 export default class Feed extends React.Component {
 
+    countries = 'ae ar at au be bg br ca ch cn co cu cz de eg fr gb gr hk hu id ie il in it jp kr lt lv ma mx my ng nl no nz ph pl pt ro rs ru sa se sg si sk th tr tw ua us ve za ';
+
     state = {
         url: "",
         articles: "",
@@ -12,7 +14,9 @@ export default class Feed extends React.Component {
         country: "",
         keyword: "",
         site: "https://the-journal.web.app/",
-        pages: 0
+        pages: 0,
+        delayInMs: 8.66,
+        intervalId: 0
     };
 
     getNews(url) {
@@ -29,14 +33,32 @@ export default class Feed extends React.Component {
         console.log(this.state);
     }
 
+    scrollStep() {
+        if (window.pageYOffset === 0) {
+            clearInterval(this.state.intervalId);
+        }
+        window.scroll(0, window.pageYOffset - this.props.scrollStepInPx);
+    }
+
+    scrollToTop() {
+        let intervalId = setInterval(this.scrollStep.bind(this), this.state.delayInMs);
+        this.setState({ intervalId: intervalId });
+    }
+
     Headlines() {
         var url;
         var country;
         Axios.get("https://ipapi.co/json/").then(
             res => {
+                
                 console.log("ip api test", res.data);
-                if (!this.state.country)
+                if (!this.state.country) {
                     country = res.data.country.toLowerCase();
+                    if (this.countries.indexOf(country) < 0) {
+                        country = 'us';
+                    }
+                    
+                }
                 else country = this.state.country;
                 this.setState({country: country, url: url});
                 url = 'https://newsapi.org/v2/top-headlines?' +
@@ -89,6 +111,7 @@ export default class Feed extends React.Component {
                 this.Headlines();
         }
         console.log("AFTERCHANGE", this.state);
+        this.scrollToTop();
     }
 
     render() {
