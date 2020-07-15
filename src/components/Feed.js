@@ -62,7 +62,7 @@ export default class Feed extends React.Component {
                 else country = this.state.country;
                 this.setState({country: country, url: url});
                 url = 'https://newsapi.org/v2/top-headlines?' +
-                    'country=' + this.state.country + '&' +
+                    'country=' + country + '&' +
                     'apiKey=aa16bc71ee6d4276b235f64657d83784';
                 this.getNews(url);
             }
